@@ -1,0 +1,36 @@
+{
+  "name": "railgun",
+  "version": "1.0.0",
+  "description": "an elegant universal react-redux starter kit",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint ./",
+    "test": "npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nRewik/Railgun.git"
+  },
+  "keywords": [
+    "boilerplate",
+    "starter kit",
+    "universal",
+    "react",
+    "redux"
+  ],
+  "author": "Nutchaphon Rewik",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nRewik/Railgun/issues"
+  },
+  "homepage": "https://github.com/nRewik/Railgun#readme",
+  "devDependencies": {
+    "eslint": "^2.4.0",
+    "eslint-config-standard": "^5.1.0",
+    "eslint-config-standard-jsx": "^1.1.1",
+    "eslint-config-standard-react": "^2.3.0",
+    "eslint-plugin-promise": "^1.1.0",
+    "eslint-plugin-react": "^4.2.3",
+    "eslint-plugin-standard": "^1.3.2"
+  }
+}
