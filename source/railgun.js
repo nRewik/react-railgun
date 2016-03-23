@@ -4,4 +4,4 @@ const railgun = {
 
 const namedRailgun = { name: 'EST 101', ...railgun }
 
-console.log(`I have a gun called ${namedRailgun}.`)
+console.log(`I have a gun called ${namedRailgun.name}.`)
