@@ -1,18 +1,23 @@
+import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-const createApp = React => ({ railgun }) => {
+const App = ({ name, speed }) => {
   return (
-    <div>name: {railgun.name} speed: {railgun.speed}</div>
+    <div>
+      <div>{name}</div>
+      <div>{speed}</div>
+    </div>
   )
 }
 
+App.propTypes = {
+  name: PropTypes.string.isRequired,
+  speed: PropTypes.number.isRequired
+}
+
 const mapStateToProps = state => {
-  const { title } = state
-  return { title }
+  return { ...state.railgun }
 }
 
 // Connect props to component
-export default React => {
-  const App = createApp(React)
-  return connect(mapStateToProps)(App)
-}
+export default connect(mapStateToProps)(App)

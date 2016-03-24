@@ -25,7 +25,6 @@ const initialState = store.getState()
 app.get('/', (request, response) => {
   const renderProps = initialState
   const rootMarkup = render(React)(renderProps, store)
-  console.log(renderProps)
   response.status(200).send(renderLayout({ settings, rootMarkup, initialState }))
 })
 

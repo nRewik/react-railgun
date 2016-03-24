@@ -2,7 +2,6 @@
   "parser": "babel-eslint",
   "extends": ["standard", "standard-react"],
   rules: {
-    "arrow-parens": [2, "as-needed"],
-    "react/prop-types": [0]
+    "arrow-parens": [2, "as-needed"]
   }
 }

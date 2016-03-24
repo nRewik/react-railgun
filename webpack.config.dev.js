@@ -17,7 +17,12 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('development')
+      }
+    })
   ],
   module: {
     loaders: [{
@@ -27,6 +32,21 @@ module.exports = {
         path.join(__dirname, 'source'),
         path.join(__dirname, 'app-home.js')
       ]
-    }]
+    }],
+    query: {
+      'plugins': ['react-transform:after'],
+      'extra': {
+        'react-transform': {
+          'transforms': [{
+            'transform': 'react-transform-hmr',
+            'imports': ['react'],
+            'locals': ['module']
+          }, {
+            'transform': 'react-transform-catch-errors',
+            'imports': ['react', 'redbox-react']
+          }]
+        }
+      }
+    }
   }
 }
