@@ -1,15 +1,20 @@
 import path from 'path'
 import express from 'express'
-import settings from 'server/settings'
 
+import settings from 'server/settings'
 import mainRoute from 'server/routes/main'
 
-const app = express()
+export default (middlewares = []) => {
+  const app = express()
 
-const buildDir = '/build'
-const staticDir = path.join(settings.APP_HOME, buildDir)
+  const buildDir = '/build'
+  const staticDir = path.join(settings.APP_HOME, buildDir)
+  app.use('/static', express.static(staticDir))
 
-app.use('/static', express.static(staticDir))
-app.use('/', mainRoute)
+  middlewares.map(middleware => {
+    app.use(middleware)
+  })
 
-export default app
+  app.use('/', mainRoute)
+  return app
+}

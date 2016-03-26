@@ -1,23 +1,19 @@
 import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
+import { Provider } from 'react-redux'
 
-const App = ({ name, speed }) => {
+import createRoutes from 'shared/routes'
+
+const App = ({ store, history }) => {
   return (
-    <div>
-      <div>{name}</div>
-      <div>{speed}</div>
-    </div>
+    <Provider store={store}>
+      {createRoutes(history)}
+    </Provider>
   )
 }
 
 App.propTypes = {
-  name: PropTypes.string.isRequired,
-  speed: PropTypes.number.isRequired
+  history: PropTypes.object.isRequired,
+  store: PropTypes.object.isRequired
 }
 
-const mapStateToProps = state => {
-  return { ...state.railgun }
-}
-
-// Connect props to component
-export default connect(mapStateToProps)(App)
+export default App

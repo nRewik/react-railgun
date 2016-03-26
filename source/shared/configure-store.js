@@ -13,6 +13,7 @@ const configureStore = (initialState = {}) => {
   // Enable Webpack hot module replacement for reducers
   if (module.hot) {
     module.hot.accept('shared/reducers', () => {
+      // FIXME: still produce error when hot reload reducer
       const nextReducers = require('shared/reducers')
       const nextRootReducer = combineReducers({ ...nextReducers, routing: routerReducer })
       store.replaceReducer(nextRootReducer)
