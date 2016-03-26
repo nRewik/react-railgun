@@ -1,16 +1,12 @@
+import React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
+import { RouterContext } from 'react-router'
 import { Provider } from 'react-redux'
-// import { RouterContext } from 'react-router'
-import App from 'shared/components/app'
 
-// TODO: Use router
-
-export default React => (renderProps, store) => {
+export default (renderProps, store) => {
   return renderToStaticMarkup(
     <Provider store={store}>
-      <App { ...renderProps }/>
+      <RouterContext { ...renderProps }/>
     </Provider>
   )
 }
-
-// <RouterContext { ...renderProps } />
