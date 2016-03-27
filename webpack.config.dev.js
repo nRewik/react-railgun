@@ -11,9 +11,9 @@ module.exports = {
     './source/client/index'
   ],
   output: {
-    path: path.join(__dirname, 'build'),
+    path: path.join(__dirname, 'build/lib'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '/static/lib'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

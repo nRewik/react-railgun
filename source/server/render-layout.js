@@ -10,7 +10,7 @@ export default ({ settings, rootMarkup, initialState }) => {
         <script>
           window.BOOTSTRAP_CLIENT_STATE = ${JSON.stringify(initialState)}
         </script>
-        <script src="/static/bundle.js"></script>
+        <script src="/static/lib/bundle.js"></script>
       </body>
     </html>
   `
