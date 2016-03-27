@@ -1,21 +1,15 @@
-import { createStore, compose, applyMiddleware, combineReducers } from 'redux'
+import { createStore, compose, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
-import { routerReducer } from 'react-router-redux'
-
-import reducers from 'shared/reducers'
-
-const logger = createLogger()
-const rootReducer = combineReducers({ ...reducers, routing: routerReducer })
+import rootReducer from 'shared/reducers'
 
 const configureStore = (initialState = {}) => {
+  const logger = createLogger()
   const store = compose(applyMiddleware(thunkMiddleware, logger))(createStore)(rootReducer, initialState)
   // Enable Webpack hot module replacement for reducers
   if (module.hot) {
     module.hot.accept('shared/reducers', () => {
-      // FIXME: still produce error when hot reload reducer
-      const nextReducers = require('shared/reducers')
-      const nextRootReducer = combineReducers({ ...nextReducers, routing: routerReducer })
+      const nextRootReducer = require('shared/reducers')
       store.replaceReducer(nextRootReducer)
     })
   }

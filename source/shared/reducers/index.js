@@ -1,3 +1,6 @@
+import { combineReducers } from 'redux'
+import { routerReducer } from 'react-router-redux'
+
 const initialState = {
   name: 'railgun',
   speed: 100
@@ -7,8 +10,7 @@ const railgun = (state = initialState, action) => {
   return state
 }
 
-const reducers = {
-  railgun
-}
-
-export default reducers
+export default combineReducers({
+  railgun,
+  routing: routerReducer
+})
