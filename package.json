@@ -2,7 +2,7 @@
   "name": "railgun",
   "version": "1.0.0",
   "description": "an elegant universal react-redux starter kit",
-  "main": "index.js",
+  "main": "source/server.js",
   "scripts": {
     "clean": "rimraf build",
     "build-babel": "babel source -d build",

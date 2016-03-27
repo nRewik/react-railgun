@@ -11,6 +11,7 @@ export default (middlewares = []) => {
   const staticDir = path.join(settings.APP_HOME, buildDir)
   app.use('/static', express.static(staticDir))
 
+  // Apply other middlewares before react-router middleware
   middlewares.map(middleware => {
     app.use(middleware)
   })
