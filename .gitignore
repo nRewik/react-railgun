@@ -2,4 +2,6 @@ node_modules
 npm-debug.log*
 .DS_Store
 .eslintcache
-build/
+/build/
+webpack-stats.json
+webpack-assets.json

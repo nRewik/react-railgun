@@ -10,6 +10,10 @@ const NODE_HOST = process.env.NODE_HOST || '0.0.0.0'
 
 const compiler = webpack(config)
 const middlewares = [
+  (request, response, next) => {
+    global.webpackIsomorphicTools.refresh()
+    next()
+  },
   require('webpack-dev-middleware')(compiler, { noInfo: true, publicPath: config.output.publicPath }),
   require('webpack-hot-middleware')(compiler)
 ]
@@ -33,13 +37,26 @@ const rebuild = sourcePath => {
   const filePath = sourcePath.split('/').slice(1).join('/')
   const buildPath = require('path').join('build', filePath)
   const parentDirectory = require('path').dirname(buildPath)
-  require('mkdirp')(parentDirectory, error => {
-    if (error) { console.log(error) }
-    require('child_process').exec(`babel ${sourcePath} --out-file ${buildPath} --copy-files`, (error, stdout, stderr) => {
-      if (error) { console.log(error) }
+
+  const extension = require('path').extname(sourcePath)
+  if (extension !== 'js') {
+    require('cp')(sourcePath, buildPath, error => {
+      if (error) { return console.log(error) }
       clearCache()
       console.log(`rebuilt ${filePath}`)
     })
+    return
+  }
+
+  require('mkdirp')(parentDirectory, error => {
+    if (error) { console.log(error) }
+    require('child_process').exec(`babel ${sourcePath} --out-file ${buildPath}`,
+      (error, stdout, stderr) => {
+        if (error) { console.log(error) }
+        clearCache()
+        console.log(`rebuilt ${filePath}`)
+      }
+    )
   })
 }
 
@@ -50,7 +67,7 @@ const remove = sourcePath => {
   rimraf(buildPath, require('fs'), error => {
     if (error) { console.log(error) }
     clearCache()
-    console.log(`delete ${filePath}`)
+    console.log(`deleted ${filePath}`)
   })
 }
 

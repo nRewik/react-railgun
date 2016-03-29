@@ -1,5 +1,4 @@
 {
-  "parser": "babel-eslint",
   "extends": ["standard", "standard-react"],
   rules: {
     "arrow-parens": [2, "as-needed"]

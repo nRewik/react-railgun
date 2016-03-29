@@ -1,20 +1,25 @@
 const path = require('path')
 const webpack = require('webpack')
 
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
+const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'))
+
 module.exports = {
   devtool: 'source-map',
   resolve: {
-    root: path.join(__dirname, 'source')
+    root: path.join(__dirname, 'build')
   },
   entry: [
-    './source/client/index'
+    './build/client/index'
   ],
   output: {
     path: path.join(__dirname, 'build/lib'),
     filename: 'bundle.js',
-    publicPath: '/static/lib'
+    publicPath: '/static/lib/'
   },
   plugins: [
+    new ExtractTextPlugin('bundle.css'),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
@@ -25,13 +30,20 @@ module.exports = {
       compressor: {
         warnings: false
       }
-    })
+    }),
+    webpackIsomorphicToolsPlugin
   ],
   module: {
-    loaders: [{
-      test: /\.js$/,
-      loaders: ['babel'],
-      include: path.join(__dirname, 'source')
-    }]
+    loaders: [
+      {
+        test: /\.js$/,
+        loaders: ['babel'],
+        include: path.join(__dirname, 'build')
+      },
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style', 'css?modules&sourceMap')
+      }
+    ]
   }
 }

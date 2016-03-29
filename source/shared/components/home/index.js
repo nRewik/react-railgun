@@ -1,11 +1,13 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
+import style from './home.css'
+
 const Agent = ({ name, rank, onDecreaseRank, onIncreaseRank }) => {
   return (
     <li>
-      <button onClick={onDecreaseRank}>-</button>
-      <button onClick={onIncreaseRank}>+</button>
+      <button className={style.increment} onClick={onDecreaseRank}>-</button>
+      <button className={style.increment} onClick={onIncreaseRank}>+</button>
       {' '}{name}—rank {rank}
     </li>
   )
