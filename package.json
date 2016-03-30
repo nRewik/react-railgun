@@ -1,5 +1,5 @@
 {
-  "name": "railgun",
+  "name": "react-railgun",
   "version": "1.0.0",
   "description": "an elegant universal react-redux starter kit",
   "main": "source/server.js",
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nRewik/railgun.git"
+    "url": "git+https://github.com/nRewik/react-railgun.git"
   },
   "keywords": [
     "boilerplate",
@@ -40,9 +40,9 @@
   "author": "Nutchaphon Rewik",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nRewik/railgun/issues"
+    "url": "https://github.com/nRewik/react-railgun/issues"
   },
-  "homepage": "https://github.com/nRewik/railgun#readme",
+  "homepage": "https://github.com/nRewik/react-railgun#readme",
   "devDependencies": {
     "babel-cli": "^6.6.5",
     "babel-loader": "^6.2.4",

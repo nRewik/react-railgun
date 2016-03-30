@@ -1,8 +1,8 @@
-# Railgun
+# react-railgun
 
-An elegant universal react-redux starter kit. ( still in development ) <br/><br/>
+An elegant universal react-redux starter kit.<br/><br/>
 
-![techs](https://raw.githubusercontent.com/nRewik/railgun/master/static/techs.png)
+![techs](https://raw.githubusercontent.com/nRewik/react-railgun/master/static/techs.png)
 
 # Features
 
@@ -54,7 +54,7 @@ An elegant universal react-redux starter kit. ( still in development ) <br/><br/
 
 # Getting started
 ```
-git clone https://github.com/nRewik/railgun.git MyApp
+git clone https://github.com/nRewik/react-railgun.git MyApp
 cd MyApp
 npm install
 npm start
