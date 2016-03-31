@@ -4,8 +4,8 @@ const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 module.exports = {
   debug: false,
-  webpack_assets_file_path: 'webpack-assets.json',
-  webpack_stats_file_path: 'webpack-stats.json',
+  webpack_assets_file_path: './build/webpack-assets.json',
+  webpack_stats_file_path: './build/webpack-stats.json',
   assets: {
     style_modules: {
       extensions: ['css'],

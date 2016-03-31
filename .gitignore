@@ -3,5 +3,3 @@ npm-debug.log*
 .DS_Store
 .eslintcache
 /build/
-webpack-stats.json
-webpack-assets.json
