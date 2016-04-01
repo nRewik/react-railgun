@@ -43,6 +43,7 @@ module.exports = {
         loader: 'style!css?modules&localIdentName=[local]___[hash:base64:5]'
       }
     ],
+    // Use react-transform only for client side.
     query: {
       'plugins': ['react-transform:after'],
       'extra': {

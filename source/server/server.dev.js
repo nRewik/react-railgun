@@ -32,12 +32,13 @@ const clearCache = () => {
   })
 }
 
-// rebuild a babel file from ./source to ./build
+// Rebuild a file with babel in ./source and copy it to ./build
 const rebuild = sourcePath => {
   const filePath = sourcePath.split('/').slice(1).join('/')
   const buildPath = require('path').join('build', filePath)
   const parentDirectory = require('path').dirname(buildPath)
 
+  // If it's not .js, then no need to rebuild, just copy it.
   const extension = require('path').extname(sourcePath)
   if (extension !== 'js') {
     require('cp')(sourcePath, buildPath, error => {
@@ -60,7 +61,7 @@ const rebuild = sourcePath => {
   })
 }
 
-// remove a file in ./build
+// Remove a file in ./build
 const remove = sourcePath => {
   const filePath = sourcePath.split('/').slice(1).join('/')
   const buildPath = require('path').join('build', filePath)
@@ -71,7 +72,7 @@ const remove = sourcePath => {
   })
 }
 
-// watch files in ./source
+// Watch files in ./source
 var watcher = chokidar.watch('./source')
 watcher.on('ready', () => {
   watcher.on('add', rebuild)
@@ -79,7 +80,7 @@ watcher.on('ready', () => {
   watcher.on('unlink', remove)
 })
 
-// clear require's cache after built webpack
+// Clear require's cache after built webpack
 compiler.plugin('done', () => {
   clearCache()
 })
