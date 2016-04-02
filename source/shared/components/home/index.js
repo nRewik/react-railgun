@@ -3,17 +3,19 @@ import { connect } from 'react-redux'
 
 import style from './home.css'
 
-const Agent = ({ name, rank, editing, onDecreaseRank, onIncreaseRank, onEditing, onSetName }) => {
+const Agent = ({ name, rank, editing, onDecreaseRank, onIncreaseRank, onDelete, onEditing, onSetName }) => {
   const turnOnEditing = () => { onEditing(true) }
   const turnOffEditing = () => { onEditing(false) }
+  const submitName = () => { name.length > 0 ? turnOffEditing() : onDelete() }
   const handleTextChange = e => { onSetName(e.target.value) }
-  const handleKeyPress = e => { if (e.key === 'Enter') turnOffEditing() }
+  const handleKeyPress = e => { if (e.key === 'Enter') { submitName() } }
+
   const nameComponent = editing
     ? <input type='text' value={name} onKeyPress={handleKeyPress} onChange={handleTextChange}
-      onBlur={turnOffEditing}
+      onBlur={submitName}
       ref={function (input) { if (input) input.focus() }}
       />
-    : <span onDoubleClick={turnOnEditing} >{name.length > 0 ? name : 'Unknown'}</span>
+    : <span onDoubleClick={turnOnEditing} >{name}</span>
 
   return (
     <li>
@@ -32,19 +34,22 @@ Agent.propTypes = {
   onEditing: PropTypes.func.isRequired,
   onSetName: PropTypes.func.isRequired,
   onDecreaseRank: PropTypes.func.isRequired,
-  onIncreaseRank: PropTypes.func.isRequired
+  onIncreaseRank: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
 }
 
-const Home = ({ agents, onDecreaseRank, onIncreaseRank, onAddAgent, onEditAgent, onSetAgentName }) => {
+const Home = ({ agents, onDecreaseRank, onIncreaseRank, onAddAgent, onDeleteAgent, onEditAgent, onSetAgentName }) => {
   const renderAgent = agent => {
     const boundOnDecreaseRank = () => { onDecreaseRank(agent.id) }
     const boundOnIncreaseRank = () => { onIncreaseRank(agent.id) }
+    const boundOnDeleteAgent = () => { onDeleteAgent(agent.id) }
     const boundOnEditAgent = editing => { onEditAgent(agent.id, editing) }
     const boundOnSetAgentName = name => { onSetAgentName(agent.id, name) }
     return (
       <Agent {...agent} key={agent.id}
         onDecreaseRank={boundOnDecreaseRank}
         onIncreaseRank={boundOnIncreaseRank}
+        onDelete={boundOnDeleteAgent}
         onEditing={boundOnEditAgent}
         onSetName={boundOnSetAgentName}
       />
@@ -57,6 +62,7 @@ const Home = ({ agents, onDecreaseRank, onIncreaseRank, onAddAgent, onEditAgent,
       <button onClick={onAddAgent}>Add Agent</button>
       <br/><br/>
       <div>* double click at agent name to edit</div>
+      <div>* type blank name to delete</div>
     </div>
   )
 }
@@ -66,6 +72,7 @@ Home.propTypes = {
   onDecreaseRank: PropTypes.func.isRequired,
   onIncreaseRank: PropTypes.func.isRequired,
   onAddAgent: PropTypes.func.isRequired,
+  onDeleteAgent: PropTypes.func.isRequired,
   onEditAgent: PropTypes.func.isRequired,
   onSetAgentName: PropTypes.func.isRequired
 }
@@ -83,6 +90,7 @@ const mapDispatchToProps = dispatch => {
     onIncreaseRank: id => { dispatch({ type: 'INCREASE_RANK', id: id }) },
     onDecreaseRank: id => { dispatch({ type: 'DECREASE_RANK', id: id }) },
     onAddAgent: () => { dispatch({ type: 'ADD_AGENT' }) },
+    onDeleteAgent: id => { dispatch({ type: 'DELETE_AGENT', id: id }) },
     onEditAgent: (id, editing) => { dispatch({ type: 'SET_EDIT', id: id, editing: editing }) },
     onSetAgentName: (id, name) => { dispatch({ type: 'SET_NAME', id: id, name: name }) }
   }
