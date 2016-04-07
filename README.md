@@ -10,7 +10,7 @@ An elegant universal react-redux starter kit.<br/><br/>
  * Universal Hot Reloading
  * Development & Production Environment
  * No testing library ( pick yours )
- * No magic, KISS, just look at the code
+ * No magic, KISS.
 
 # Tech
 
