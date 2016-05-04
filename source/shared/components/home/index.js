@@ -1,5 +1,8 @@
 import React, { PropTypes } from 'react'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+
+import { decreaseRank, increaseRank, addAgent, deleteAgent, editAgent, setAgentName } from 'shared/redux/modules/agents'
 
 import style from './home.css'
 
@@ -38,20 +41,21 @@ Agent.propTypes = {
   onDelete: PropTypes.func.isRequired
 }
 
-const Home = ({ agents, onDecreaseRank, onIncreaseRank, onAddAgent, onDeleteAgent, onEditAgent, onSetAgentName }) => {
+const Home = ({ agents, actions }) => {
+  const { decreaseRank, increaseRank, deleteAgent, editAgent, setAgentName, addAgent } = actions
   const renderAgent = agent => {
-    const boundOnDecreaseRank = () => { onDecreaseRank(agent.id) }
-    const boundOnIncreaseRank = () => { onIncreaseRank(agent.id) }
-    const boundOnDeleteAgent = () => { onDeleteAgent(agent.id) }
-    const boundOnEditAgent = editing => { onEditAgent(agent.id, editing) }
-    const boundOnSetAgentName = name => { onSetAgentName(agent.id, name) }
+    const boundDecreaseRank = () => { decreaseRank(agent.id) }
+    const boundIncreaseRank = () => { increaseRank(agent.id) }
+    const boundDeleteAgent = () => { deleteAgent(agent.id) }
+    const boundEditAgent = editing => { editAgent(agent.id, editing) }
+    const boundSetAgentName = name => { setAgentName(agent.id, name) }
     return (
       <Agent {...agent} key={agent.id}
-        onDecreaseRank={boundOnDecreaseRank}
-        onIncreaseRank={boundOnIncreaseRank}
-        onDelete={boundOnDeleteAgent}
-        onEditing={boundOnEditAgent}
-        onSetName={boundOnSetAgentName}
+        onDecreaseRank={boundDecreaseRank}
+        onIncreaseRank={boundIncreaseRank}
+        onDelete={boundDeleteAgent}
+        onEditing={boundEditAgent}
+        onSetName={boundSetAgentName}
       />
     )
   }
@@ -59,7 +63,7 @@ const Home = ({ agents, onDecreaseRank, onIncreaseRank, onAddAgent, onDeleteAgen
     <div>
       <div>Railgun Agents</div>
       <ul>{agents.map(agent => { return renderAgent(agent) })}</ul>
-      <button onClick={onAddAgent}>Add Agent</button>
+      <button onClick={addAgent}>Add Agent</button>
       <br/><br/>
       <div>* double click at agent name to edit</div>
       <div>* type blank name to delete</div>
@@ -69,12 +73,7 @@ const Home = ({ agents, onDecreaseRank, onIncreaseRank, onAddAgent, onDeleteAgen
 
 Home.propTypes = {
   agents: PropTypes.array.isRequired,
-  onDecreaseRank: PropTypes.func.isRequired,
-  onIncreaseRank: PropTypes.func.isRequired,
-  onAddAgent: PropTypes.func.isRequired,
-  onDeleteAgent: PropTypes.func.isRequired,
-  onEditAgent: PropTypes.func.isRequired,
-  onSetAgentName: PropTypes.func.isRequired
+  actions: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => {
@@ -87,12 +86,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onIncreaseRank: id => { dispatch({ type: 'INCREASE_RANK', id: id }) },
-    onDecreaseRank: id => { dispatch({ type: 'DECREASE_RANK', id: id }) },
-    onAddAgent: () => { dispatch({ type: 'ADD_AGENT' }) },
-    onDeleteAgent: id => { dispatch({ type: 'DELETE_AGENT', id: id }) },
-    onEditAgent: (id, editing) => { dispatch({ type: 'SET_EDIT', id: id, editing: editing }) },
-    onSetAgentName: (id, name) => { dispatch({ type: 'SET_NAME', id: id, name: name }) }
+    actions: bindActionCreators({ increaseRank, decreaseRank, addAgent, deleteAgent, editAgent, setAgentName }, dispatch)
   }
 }
 
