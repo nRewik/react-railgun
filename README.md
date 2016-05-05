@@ -45,7 +45,7 @@ An elegant universal react-redux starter kit.<br/><br/>
 │   └── shared/
 │       ├── components/
 │       ├── configure-store.js
-│       ├── reducers/
+│       ├── redux/
 │       └── routes/
 ├── static/
 ├── webpack.config.dev.js
@@ -60,7 +60,7 @@ npm install
 npm start
 
 # Open localhost:3000
-# For development use `npm run start-dev`
+# For development use `npm run start:dev`
 ```
 
 ---------
