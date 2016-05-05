@@ -18,6 +18,6 @@ if (module.hot) {
 }
 
 ReactDOM.render(
-  <App store={store} history={history}/>,
+  <App store={store} history={history} />,
   document.getElementById('root')
 )

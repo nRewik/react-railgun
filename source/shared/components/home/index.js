@@ -64,7 +64,7 @@ const Home = ({ agents, actions }) => {
       <div>Railgun Agents</div>
       <ul>{agents.map(agent => { return renderAgent(agent) })}</ul>
       <button onClick={addAgent}>Add Agent</button>
-      <br/><br/>
+      <br /><br />
       <div>* double click at agent name to edit</div>
       <div>* type blank name to delete</div>
     </div>

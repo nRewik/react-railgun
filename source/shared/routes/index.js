@@ -7,8 +7,8 @@ import About from 'shared/components/about'
 export default browserHistory => {
   return (
     <Router history={browserHistory}>
-      <Route path='/' component={Home}/>
-      <Route path='/about' component={About}/>
+      <Route path='/' component={Home} />
+      <Route path='/about' component={About} />
     </Router>
   )
 }
