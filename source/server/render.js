@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 export default (renderProps, store) => {
   return renderToStaticMarkup(
     <Provider store={store}>
-      <RouterContext { ...renderProps } />
+      <RouterContext {...renderProps} />
     </Provider>
   )
 }

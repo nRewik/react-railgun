@@ -2,21 +2,12 @@ const path = require('path')
 const webpack = require('webpack')
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
-const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'))
+const nodeExternals = require('webpack-node-externals')
 
-module.exports = {
+const common = {
   devtool: 'source-map',
   resolve: {
     root: path.join(__dirname, 'build')
-  },
-  entry: [
-    './build/client/index'
-  ],
-  output: {
-    path: path.join(__dirname, 'build/lib'),
-    filename: 'bundle.js',
-    publicPath: '/static/lib/'
   },
   plugins: [
     new ExtractTextPlugin('bundle.css'),
@@ -30,8 +21,7 @@ module.exports = {
       compressor: {
         warnings: false
       }
-    }),
-    webpackIsomorphicToolsPlugin
+    })
   ],
   module: {
     loaders: [
@@ -47,3 +37,37 @@ module.exports = {
     ]
   }
 }
+
+const frontend = {
+  entry: path.join(__dirname, 'build/client/index.js'),
+  output: {
+    path: path.join(__dirname, 'build/lib'),
+    filename: 'frontend-bundle.js',
+    publicPath: '/static/lib/'
+  }
+}
+
+const backend = {
+  entry: path.join(__dirname, 'build/server/main.js'),
+  target: 'node',
+  node: {
+    __dirname: false,
+    __filename: false
+  },
+  output: {
+    path: path.join(__dirname, 'build/lib'),
+    filename: 'backend-bundle.js',
+    publicPath: '/static'
+    // publicPath: '/static/lib/'
+  },
+  externals: nodeExternals(),
+  plugins: [
+    new webpack.NormalModuleReplacementPlugin(/\.css$/, 'node-noop'),
+    new webpack.BannerPlugin('require("source-map-support").install();', { raw: true, entryOnly: false })
+  ]
+}
+
+module.exports = [
+  Object.assign({}, common, frontend),
+  Object.assign({}, common, backend)
+]

@@ -1,6 +1,6 @@
-import appHome from '../../../app-home.js'
+import path from 'path'
 
 export default {
   TITLE: 'Your Cool React App!',
-  ...appHome
+  APP_HOME: path.join(__dirname, '../../')
 }
